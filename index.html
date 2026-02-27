@@ -1,57 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Go Up Follow Panel</title>
+  <title>Go Up Panel</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
 </head>
-<body>
+<body class="center">
 
-<div class="login-box">
-  <h2>Go Up Follow</h2>
-  <button id="googleLogin">Login with Google</button>
+<div class="glass-card">
+  <h1 class="logo">Go Up</h1>
+  <p class="subtitle">Premium Digital Panel</p>
+  <button id="googleLogin" class="primary-btn">
+    Continue with Google
+  </button>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA5FVM2_k0Th9kgDnalFXy5hDKPK-8i4do",
-  authDomain: "goupfollow-panel.firebaseapp.com",
-  projectId: "goupfollow-panel",
-  storageBucket: "goupfollow-panel.firebasestorage.app",
-  messagingSenderId: "128277190466",
-  appId: "1:128277190466:web:8afb1ff18662054d455adb",
-  measurementId: "G-22G6YJ60ZE"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-document.getElementById("googleLogin").addEventListener("click", async () => {
-
-  const provider = new GoogleAuthProvider();
-
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    await setDoc(doc(db, "users", user.uid), {
-      name: user.displayName,
-      email: user.email,
-      balance: 0
-    }, { merge: true });
-
-    window.location.href = "dashboard.html";
-
-  } catch (error) {
-    alert(error.message);
-  }
-
-});
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
